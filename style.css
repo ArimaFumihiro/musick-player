@@ -48,9 +48,6 @@ body {
   margin: 0;
   font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', system-ui, 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Meiryo', sans-serif;
   font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
   background: var(--bg);
   overflow: hidden;
@@ -222,15 +219,21 @@ main
   text-align: center;
   background: linear-gradient(to bottom right, var(--bg), var(--bg2));
   box-shadow: 0 30px 30px var(#000000);
-  position: relative;
   box-sizing: border-box;
+  /* 常に画面中央に固定 */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 .back-img {
-  z-index: 1;
-  position: relative;
-  bottom: -200px;
-  right: 0px;
+  position: fixed;
+  bottom: 8vh;
+  right: 17.5vw;
+  z-index: 1; /* #main(z-index:10)より低いので画面が狭くなると潜り込む */
+  pointer-events: none;
 }
 
 .conteinar {
@@ -363,17 +366,14 @@ player
     display: none;
   }
 
-  body {
-    align-items: flex-start;
-    overflow-y: auto;
-    padding: 60px 0 30px;
-    box-sizing: border-box;
-  }
-
   #main {
     width: 92vw;
     border-radius: 24px;
     padding: 16px;
+  }
+
+  .hamburger {
+    top: 60px;
   }
 
   .message {
@@ -382,16 +382,17 @@ player
 
   .main-btn {
     height: clamp(80px, 22vw, 120px);
-    font-size: clamp(1.6rem, 7vw, 2.8rem);
+    font-size: clamp(2rem, 7vw, 2.8rem);
     border-radius: 20px;
+    justify-self: center;
     margin-bottom: 24px;
     gap: 12px;
   }
 
   .icon-stop {
     font-size: 1.5rem;
-    height: 40px;
-    width: 40px;
+    height: 20px;
+    width: 20px;
   }
 
   .drum {
