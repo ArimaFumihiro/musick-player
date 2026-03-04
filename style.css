@@ -373,7 +373,7 @@ player
   }
 
   .hamburger {
-    top: 60px;
+    top: 40px;
   }
 
   .message {
@@ -385,7 +385,7 @@ player
 
   .main-btn {
     height: clamp(80px, 22vw, 120px);
-    font-size: clamp(2.5rem, 7.5vw, 3rem);
+    font-size: clamp(2.5rem, 7vw, 2.8rem);
     border-radius: 20px;
     justify-self: center;
     margin-bottom: 24px;
@@ -394,8 +394,8 @@ player
 
   .icon-stop {
     font-size: 1.5rem;
-    height: 20px;
-    width: 20px;
+    height: 21px;
+    width: 21px;
   }
 
   .drum {
