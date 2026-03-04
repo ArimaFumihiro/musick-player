@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme" id="theme" >
+  
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="navigation" id="navigation">
+    <ul class="menu-contents">
+      <li>
+        <a href="#">環境設定
+          <div class="nav-contents">
+            <label class="switch">
+              <span class="environment">ダーク</span>
+              <input type="checkbox" id="selectTheme" />
+              <span class="toggle">
+                <span class="slider"></span>
+              </span>
+            </label>
+          </div>
+          <div class="nav-contents">
+            <label class="switch">
+              <span class="environment">ランダム</span>
+              <input type="checkbox" id="random"/>
+              <span class="toggle">
+                <span class="slider"></span>
+              </span>
+            </label>
+          </div>
+        </a>
+      </li>
+    </ul>    
+  </nav>
+
+  <div id="main">
+    
+    <div class="player">
+      <div class="message">What's on right now♪</div>
+      <div class="player-list">
+        <span class="scroll-text" id="this-bgm">下のボタンを押してね！</span>
+      </div>
+    </div>
+
+    <div class="conteinar">      
+      <div id="contents">Next BGM
+        <span class="next-bgm" id="next-standBy-bgm">待機曲 01</span>          
+      </div>      
+      <button class="main-btn" id="standBy">
+        <span id="standBy-text">待機</span><p id="standBy-shapes" class="icon-play">▶</p>
+      </button>
+    </div>
+
+    <div class="conteinar">
+      <div id="contents">Next BGM
+        <span class="next-bgm" id="next-admission-bgm">入場曲 01</span>
+      </div>
+      <button class="main-btn" id="admission">
+        <span id="admission-text">入場</span>
+        <p id="admission-shapes" class="icon-play">▶</p>
+      </button>
+    </div>
+
+    <div class="conteinar">
+      <div id="contents">Next BGM
+        <span class="next-bgm" id="next-closing-bgm">閉会曲 01</span>
+      </div>
+      <button class="main-btn" id="closing">
+        <span id="closing-text">閉会</span>
+        <p id="closing-shapes" class="icon-play">▶</p>
+      </button>
+    </div>
+
+    
+    
+    <div class="drum-conteinar">
+      <div class="drum-contents">
+        <button class="drum" id="drum"><img src="./drum.png" alt="drum-roll"></button>
+        <select class="drum-select" name="length-selection" id="drum-select">
+          <option value="Short">Short</option>
+          <option value="Medium" selected>Medium</option>
+          <option value="Long">Long</option>
+        </select>
+      </div>
+    </div>
+    
+  </div>
+  <img src="./girl.png" alt="girl" class="back-img">
+  <script src="script.js"></script>
+</body>
+</html>
