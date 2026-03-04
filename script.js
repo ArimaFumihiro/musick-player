@@ -192,8 +192,8 @@ function buttonChange(bool, textKey, btnKey) {
   applySettingsToUI();
 }
 
-function fadeOut() {
-  const s = settings.playing;
+function fadeOut(audioRef) {
+  const s = audioRef || settings.playing;
   if (!s) return;
 
   let currentVol = s.volume;
@@ -226,13 +226,13 @@ $btnStandBy.addEventListener('click', () => {
     playSound();
     getNextTrack('standBy');
   } else {
-    fadeOut();
-    whatNow(false, 'standBy', 'standByNext');
-    applySettingsToUI();
+    const audioToStop = settings.playing;
+    fadeOut(audioToStop);
+    settings.playing = null;
+    settings.thisBgm = '';
     setButtonsState(false);
-    settings.playing.pause();
   }
-
+  
   settings.standByState = !bool;
   buttonChange(bool, 'standByBtnText', 'btnStandBy');
 });
@@ -246,11 +246,11 @@ $btnAdmission.addEventListener('click', () => {
     getNextTrack('admission')
     playSound();
   } else {
-    fadeOut();
-    whatNow(false, 'admission', 'admissionNext');
-    applySettingsToUI();
+    const audioToStop = settings.playing;
+    fadeOut(audioToStop);
+    settings.playing = null;
+    settings.thisBgm = '';
     setButtonsState(false);
-    settings.playing.pause();
   }
 
   settings.admissionState = !bool;
@@ -266,11 +266,11 @@ $btnClosing.addEventListener('click', () => {
     getNextTrack('closing')
     playSound();
   } else {
-    fadeOut();
-    whatNow(false, 'closing', 'closingNext');
-    applySettingsToUI();
+    const audioToStop = settings.playing;
+    fadeOut(audioToStop);
+    settings.playing = null;
+    settings.thisBgm = '';
     setButtonsState(false);
-    settings.playing.pause();
   }
 
   settings.closingState = !bool;
@@ -285,11 +285,11 @@ $drum.addEventListener('click', () => {
     whatNow(true, 'drumRoll', 'drumRollNext');
     playSound();
   } else {
-    fadeOut();
-    whatNow(false, 'drumRoll', 'drumRollNext');
-    applySettingsToUI();
+    const audioToStop = settings.playing;
+    fadeOut(audioToStop);
+    settings.playing = null;
+    settings.thisBgm = '';
     setButtonsState(false);
-    settings.playing.pause();
   }
 
   settings.drumRollState = !bool;
@@ -391,3 +391,4 @@ function getNextTrack(category) {
 
   applySettingsToUI();
 }
+
