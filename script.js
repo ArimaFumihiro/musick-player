@@ -2,14 +2,13 @@
 
 const $ = (e) => document.getElementById(e);
 
-const $hamburger = $('hamburger')
-const $nav = $('navigation')
+const $hamburger = $('hamburger');
+const $nav = $('navigation');
 const $theme = $('theme');
 const $selectTheme = $('selectTheme');
 const $random = $('random');
 const $drum = $('drum');
 const $drumSelect = $('drum-select');
-const $musicTitle = $('music-title');
 const $standByNext = $('next-standBy-bgm');
 const $admissionNext = $('next-admission-bgm');
 const $closingNext = $('next-closing-bgm');
@@ -23,7 +22,6 @@ const $standByShapes = $('standBy-shapes');
 const $admissionShapes = $('admission-shapes');
 const $closingShapes = $('closing-shapes');
 const $thisBgm = $('this-bgm');
-const $bgm = $('bgm-audio');
 
 const bgm = {
   standBy: [
@@ -35,7 +33,6 @@ const bgm = {
     { id: 'sb06', title: '待機曲 06', path: 'standBy_title_06' },
     { id: 'sb07', title: '待機曲 07', path: 'standBy_title_07' },
   ],
-
   admission: [
     { id: 'ad01', title: '入場曲 01', path: 'admission_title_01' },
     { id: 'ad02', title: '入場曲 02', path: 'admission_title_02' },
@@ -44,25 +41,22 @@ const bgm = {
     { id: 'ad05', title: '入場曲 05', path: 'admission_title_05' },
     { id: 'ad06', title: '入場曲 06', path: 'admission_title_06' },
   ],
-
   closing: [
     { id: 'cl01', title: '閉会曲 01', path: 'closing_title_01' },
     { id: 'cl02', title: '閉会曲 02', path: 'closing_title_02' },
     { id: 'cl03', title: '閉会曲 03', path: 'closing_title_03' },
     { id: 'cl04', title: '閉会曲 04', path: 'closing_title_04' },
   ],
-
   drumRoll: [
-    { id: 'dr01', title: 'Short', path: 'drumRoll_title_01' },
+    { id: 'dr01', title: 'Short',  path: 'drumRoll_title_01' },
     { id: 'dr02', title: 'Medium', path: 'drumRoll_title_02' },
-    { id: 'dr03', title: 'Long', path: 'drumRoll_title_03' },
+    { id: 'dr03', title: 'Long',   path: 'drumRoll_title_03' },
   ],
 };
 
 const settings = {
   theme: false,
   random: false,
-  drum: 'Medium',
 
   standByNext: '待機曲 01',
   admissionNext: '入場曲 01',
@@ -72,11 +66,7 @@ const settings = {
   playing: null,
   thisBgm: '',
 
-  standByBtnText: '待機',
-  admissionBtnText: '入場',
-  closingBtnText: '閉会',
   stopText: '停止',
-
   btnStandBy: '待機',
   btnAdmission: '入場',
   btnClosing: '閉会',
@@ -97,7 +87,7 @@ const playListManager = {
       { id: 'sb04', title: '待機曲 04', path: 'standBy_title_04' },
       { id: 'sb05', title: '待機曲 05', path: 'standBy_title_05' },
       { id: 'sb06', title: '待機曲 06', path: 'standBy_title_06' },
-      { id: 'sb07', title: '待機曲 07', path: 'standBy_title_07' }
+      { id: 'sb07', title: '待機曲 07', path: 'standBy_title_07' },
     ], index: 0
   },
   admission: {
@@ -107,7 +97,7 @@ const playListManager = {
       { id: 'ad03', title: '入場曲 03', path: 'admission_title_03' },
       { id: 'ad04', title: '入場曲 04', path: 'admission_title_04' },
       { id: 'ad05', title: '入場曲 05', path: 'admission_title_05' },
-      { id: 'ad06', title: '入場曲 06', path: 'admission_title_06' }
+      { id: 'ad06', title: '入場曲 06', path: 'admission_title_06' },
     ], index: 0
   },
   closing: {
@@ -115,7 +105,7 @@ const playListManager = {
       { id: 'cl01', title: '閉会曲 01', path: 'closing_title_01' },
       { id: 'cl02', title: '閉会曲 02', path: 'closing_title_02' },
       { id: 'cl03', title: '閉会曲 03', path: 'closing_title_03' },
-      { id: 'cl04', title: '閉会曲 04', path: 'closing_title_04' }
+      { id: 'cl04', title: '閉会曲 04', path: 'closing_title_04' },
     ], index: 0
   }
 };
@@ -130,7 +120,6 @@ function applySettingsToUI() {
   $standByNext.textContent = settings.standByNext;
   $admissionNext.textContent = settings.admissionNext;
   $closingNext.textContent = settings.closingNext;
-  $drum.value = settings.drumRollNext;
   $thisBgm.textContent = settings.thisBgm;
   $standByText.textContent = settings.btnStandBy;
   $standByShapes.className = settings.standByState ? 'icon-play' : 'icon-stop';
@@ -140,24 +129,17 @@ function applySettingsToUI() {
   $closingShapes.className = settings.closingState ? 'icon-play' : 'icon-stop';
 }
 
-function updateSetting(key, value) {
-  settings[key] = value;
-  applySettingsToUI();
-}
-
 // ----------------------------------------
 // 再生
 // ----------------------------------------
 function playSound() {
-  const s = settings.playing;
-  s?.play().catch(err => {
+  settings.playing?.play().catch(err => {
     console.log("再生エラー", err);
   });
 }
 
 function whatNow(category, next) {
-  const targetTitle = settings[next];
-  const foundTrack = bgm[category].find(track => track.title === targetTitle);
+  const foundTrack = bgm[category].find(track => track.title === settings[next]);
   if (!foundTrack) return;
 
   settings.playing = new Audio(`./bgm/${category}/${foundTrack.path}.mp3`);
@@ -167,7 +149,6 @@ function whatNow(category, next) {
     if (category === 'drumRoll') {
       settings.drumRollState = true;
       settings.thisBgm = '';
-      buttonChange(true, 'drumRollBtnText', 'btnDrumRoll'); // drumRollはbuttonChangeの対象外なので直接更新
       applySettingsToUI();
       setButtonsState(false);
     } else {
@@ -196,7 +177,7 @@ function stopAudio(audioRef) {
   } else {
     const FADE_OUT_DURATION = 1500;
     const interval = 100;
-    const currentVol = s.volume; // ← 修正：s.volumeから取得
+    const currentVol = s.volume;
     const step = Math.max(0.001, currentVol / (FADE_OUT_DURATION / interval));
 
     const fadeOutInterval = setInterval(() => {
@@ -214,9 +195,8 @@ function stopAudio(audioRef) {
 // ----------------------------------------
 // ボタン表示切り替え
 // ----------------------------------------
-function buttonChange(bool, textKey, btnKey) {
-  const result = !bool ? settings[textKey] : settings.stopText;
-  settings[btnKey] = result;
+function buttonChange(bool, btnKey, label) {
+  settings[btnKey] = bool ? settings.stopText : label;
   applySettingsToUI();
 }
 
@@ -225,9 +205,9 @@ function buttonChange(bool, textKey, btnKey) {
 // ----------------------------------------
 const allButtons = [$btnStandBy, $btnAdmission, $btnClosing, $drum];
 
-function setButtonsState(bool, currentBtnId) {
+function setButtonsState(bool, currentBtn) {
   allButtons.forEach(btn => {
-    if (btn !== currentBtnId) {
+    if (btn !== currentBtn) {
       btn.disabled = bool;
       btn.style.opacity = bool ? "0.5" : "1.0";
       btn.style.cursor = bool ? "not-allowed" : "pointer";
@@ -272,17 +252,15 @@ $hamburger.addEventListener('click', () => {
 });
 
 $selectTheme.addEventListener('change', () => {
-  updateSetting('theme', $selectTheme.checked);
+  settings.theme = $selectTheme.checked;
+  applySettingsToUI();
 });
 
-// $random は1つだけ
 $random.addEventListener('change', (e) => {
-  const isRandom = e.target.checked;
-  settings.random = isRandom;
+  settings.random = e.target.checked;
 
-  const categories = ['standBy', 'admission', 'closing'];
-  categories.forEach(cat => {
-    playListManager[cat].queue = isRandom ? shuffle(bgm[cat]) : [...bgm[cat]];
+  ['standBy', 'admission', 'closing'].forEach(cat => {
+    playListManager[cat].queue = settings.random ? shuffle(bgm[cat]) : [...bgm[cat]];
     playListManager[cat].index = 0;
     settings[`${cat}Next`] = playListManager[cat].queue[0].title;
   });
@@ -291,15 +269,12 @@ $random.addEventListener('change', (e) => {
 });
 
 $drumSelect.addEventListener('change', (e) => {
-  const selectedTitle = e.target.value;
-  const foundTrack = bgm.drumRoll.find(track => track.title === selectedTitle);
-  if (foundTrack) {
-    settings.drumRollNext = foundTrack.title;
-  }
+  const foundTrack = bgm.drumRoll.find(track => track.title === e.target.value);
+  if (foundTrack) settings.drumRollNext = foundTrack.title;
 });
 
 $btnStandBy.addEventListener('click', () => {
-  let bool = settings.standByState;
+  const bool = settings.standByState;
 
   if (bool) {
     setButtonsState(true, $btnStandBy);
@@ -315,11 +290,11 @@ $btnStandBy.addEventListener('click', () => {
   }
 
   settings.standByState = !bool;
-  buttonChange(bool, 'standByBtnText', 'btnStandBy');
+  buttonChange(bool, 'btnStandBy', '待機');
 });
 
 $btnAdmission.addEventListener('click', () => {
-  let bool = settings.admissionState;
+  const bool = settings.admissionState;
 
   if (bool) {
     setButtonsState(true, $btnAdmission);
@@ -335,11 +310,11 @@ $btnAdmission.addEventListener('click', () => {
   }
 
   settings.admissionState = !bool;
-  buttonChange(bool, 'admissionBtnText', 'btnAdmission');
+  buttonChange(bool, 'btnAdmission', '入場');
 });
 
 $btnClosing.addEventListener('click', () => {
-  let bool = settings.closingState;
+  const bool = settings.closingState;
 
   if (bool) {
     setButtonsState(true, $btnClosing);
@@ -355,11 +330,11 @@ $btnClosing.addEventListener('click', () => {
   }
 
   settings.closingState = !bool;
-  buttonChange(bool, 'closingBtnText', 'btnClosing');
+  buttonChange(bool, 'btnClosing', '閉会');
 });
 
 $drum.addEventListener('click', () => {
-  let bool = settings.drumRollState;
+  const bool = settings.drumRollState;
 
   if (bool) {
     setButtonsState(true, $drum);
