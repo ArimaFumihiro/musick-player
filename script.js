@@ -144,7 +144,9 @@ function applySettingsToUI() {
 
 function playSound() {
   const s = settings.playing;
-  s?.play();
+  s?.play().catch(err => {
+    console.log("再生エラー", err);
+  });
 }
 
 function whatNow(bool, category, next) {
