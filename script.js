@@ -230,6 +230,7 @@ $btnStandBy.addEventListener('click', () => {
     whatNow(false, 'standBy', 'standByNext');
     applySettingsToUI();
     setButtonsState(false);
+    settings.playing.pause();
   }
 
   settings.standByState = !bool;
@@ -249,6 +250,7 @@ $btnAdmission.addEventListener('click', () => {
     whatNow(false, 'admission', 'admissionNext');
     applySettingsToUI();
     setButtonsState(false);
+    settings.playing.pause();
   }
 
   settings.admissionState = !bool;
@@ -268,6 +270,7 @@ $btnClosing.addEventListener('click', () => {
     whatNow(false, 'closing', 'closingNext');
     applySettingsToUI();
     setButtonsState(false);
+    settings.playing.pause();
   }
 
   settings.closingState = !bool;
@@ -286,6 +289,7 @@ $drum.addEventListener('click', () => {
     whatNow(false, 'drumRoll', 'drumRollNext');
     applySettingsToUI();
     setButtonsState(false);
+    settings.playing.pause();
   }
 
   settings.drumRollState = !bool;
