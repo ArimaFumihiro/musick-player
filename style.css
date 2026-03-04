@@ -379,10 +379,13 @@ player
   .message {
     font-size: 1rem;
   }
+  .scroll-text {
+    width: 50vw;
+  }
 
   .main-btn {
     height: clamp(80px, 22vw, 120px);
-    font-size: clamp(2rem, 7vw, 2.8rem);
+    font-size: clamp(2.5rem, 7.5vw, 3rem);
     border-radius: 20px;
     justify-self: center;
     margin-bottom: 24px;
